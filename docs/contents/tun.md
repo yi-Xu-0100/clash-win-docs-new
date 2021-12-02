@@ -7,7 +7,7 @@
 启动 TUN 模式需要进行如下操作：
 
 1. 点击`General`中`Service Mode`右边`Manage`，在打开窗口中安装服务模式，安装完成应用会自动重启，Service Mode 右边地球图标变为`绿色`即安装成功（无法安装参考：[这里](./questions.md#service-mode-无法安装-windows)）
-2. 在使用的配置文件中加入如下内容：
+2. 在使用的**配置文件**中加入如下内容：
 
 ```yaml
 dns:
@@ -55,7 +55,7 @@ TUN 模式更推荐使用 fake-ip 模式
 启动 TUN 模式需要进行如下操作：
 
 1. 点击`General`中`Service Mode`右边`Manage`，在打开窗口中安装服务模式，安装完成应用会自动重启，Service Mode 右边地球图标变为`绿色`即安装成功
-2. 在使用的配置文件中加入如下内容：
+2. 在使用的**配置文件**中加入如下内容：
 
 ```yaml
 dns:
@@ -134,7 +134,7 @@ net.inet6.ip6.forwarding=1
 启动 TUN 模式需要进行如下操作：
 
 1. 点击`General`中`Service Mode`右边`Manage`，在打开窗口中安装服务模式，安装完成应用会自动重启（某些系统需要手动重启 APP），Service Mode 右边地球图标变为`绿色`即安装成功
-2. 在使用的配置文件中加入如下内容：
+2. 在使用的**配置文件**中加入如下内容：
 
 ```yaml
 dns:
@@ -164,5 +164,23 @@ Service Mode 安装脚本使用 [Kr328/clash-premium-installer](https://github.c
 ## 技巧
 
 ::: tip
-你可以使用[mixin](/contents/mixin.md)将上面内容合并至所有配置文件中，并使用 Mixin 开关 TUN 模式
+你可以使用 [mixin](/contents/mixin.md) 将上面内容合并至所有配置文件中，并使用 Mixin 开关 TUN 模式，以 windows 配置为例：
+```yaml
+# windows 的 tun 示例配置
+mixin:
+  dns:
+    enable: true
+    enhanced-mode: fake-ip
+    nameserver:
+      - 8.8.8.8 # 真实请求DNS，可多设置几个
+      - 114.114.114.114
+  # interface-name: WLAN # 出口网卡名称，或者使用下方的自动检测
+  tun:
+    enable: true
+    stack: gvisor # 使用 system 需要 Clash Premium 2021.05.08 及更高版本
+    dns-hijack:
+      - 198.18.0.2:53 # 请勿更改
+    auto-route: true
+    auto-detect-interface: true # 自动检测出口网卡
+```
 :::
